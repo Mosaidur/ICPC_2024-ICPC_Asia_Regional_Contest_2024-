@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blueAccent,
+                color: Color(0xFF001F54),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,6 +118,30 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+
+            ListTile(
+              leading: const Icon(Icons.school),
+              title: const Text('Discover DIU'),
+              onTap: () {
+                Navigator.pop(context);  // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DiscoverPage()),  // Navigate to AboutPage
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.people),
+              title: const Text('Committee'),
+              onTap: () {
+                Navigator.pop(context);  // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CommitteePage()),  // Navigate to AboutPage
+                );
+              },
+            ),
+
             ListTile(
               leading: const Icon(Icons.image),
               title: const Text('Gallery'),
@@ -140,6 +164,8 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+
+
 
           ],
         ),
@@ -218,61 +244,61 @@ class HomePage extends StatelessWidget {
                 mainAxisSpacing: 10,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  _buildFeatureItem(context, 'Onsite Contest', Icons.location_city, OnsiteContestPage()),
-                  _buildFeatureItem(context, 'Contest Schedule', Icons.schedule, ContestSchedule()),
+
                   _buildFeatureItem(context, 'Seat Plan', Icons.event_seat, SeatPlanPage()),
+                  _buildFeatureItem(context, 'Contest Schedule', Icons.schedule, ContestSchedule()),
+                  _buildFeatureItem(context, 'Onsite Contest', Icons.location_city, OnsiteContestPage()),
                   _buildFeatureItem(context, 'Transport', Icons.directions_bus, RouteDetailsPage()),
                   _buildFeatureItem(context, 'Accommodation', Icons.hotel, AccommodationPage()),
                   _buildFeatureItem(context, 'Venue Location', Icons.location_on, VenuePage()),
-                  _buildFeatureItem(context, 'Discover DIU', Icons.school, DiscoverPage()),
-                  _buildFeatureItem(context, 'Committee', Icons.people, CommitteePage()),
+
 
                 ],
               ),
             ),
 
             // 3rd Container: Notice Board
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Notice Board',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  FutureBuilder<List<String>>(
-                    future: fetchNotices(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return const Text('No notices available.');
-                      } else {
-                        return Column(
-                          children: snapshot.data!
-                              .map((pdfUrl) => ListTile(
-                            leading: const Icon(Icons.picture_as_pdf),
-                            title: Text(pdfUrl.split('/').last),
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PDFViewerPage(pdfUrl: pdfUrl),
-                              ),
-                            ),
-                          ))
-                              .toList(),
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.all(16.0),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       const Text(
+            //         'Notice Board',
+            //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            //       ),
+            //       const SizedBox(height: 10),
+            //       FutureBuilder<List<String>>(
+            //         future: fetchNotices(),
+            //         builder: (context, snapshot) {
+            //           if (snapshot.connectionState == ConnectionState.waiting) {
+            //             return const CircularProgressIndicator();
+            //           } else if (snapshot.hasError) {
+            //             return Text('Error: ${snapshot.error}');
+            //           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            //             return const Text('No notices available.');
+            //           } else {
+            //             return Column(
+            //               children: snapshot.data!
+            //                   .map((pdfUrl) => ListTile(
+            //                 leading: const Icon(Icons.picture_as_pdf),
+            //                 title: Text(pdfUrl.split('/').last),
+            //                 onTap: () => Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) =>
+            //                         PDFViewerPage(pdfUrl: pdfUrl),
+            //                   ),
+            //                 ),
+            //               ))
+            //                   .toList(),
+            //             );
+            //           }
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -78,6 +78,17 @@ class _RouteDetailsPageState extends State<RouteDetailsPage> {
       "Return Time": "6:00 pm",
       "Volunteer Name": "MD. AMINUR RAHMAN JOY",
       "Contact Number": "01708326290"
+    },
+    {
+      "SL No": "Route-07",
+      "Bus No": "Shuttle Bus",
+      "Date": "06.12.24 Friday & 07.12.24 Saturday",
+      "Route Name": "Shuttle bus Service from Uttara Center metro station",
+      "Route": "https://maps.app.goo.gl/uwnkMHP2CtskU65C8",
+      "Start Time (Pickup Place)": "7:00 am (Uttara Center)",
+      "Return Time": "6:00 pm",
+      "Volunteer Name": "Ashik, Sawkot Hossen",
+      "Contact Number": "01756584060, 01752085129"
     }
   ];
   Future<void> _launchURL(String url) async {

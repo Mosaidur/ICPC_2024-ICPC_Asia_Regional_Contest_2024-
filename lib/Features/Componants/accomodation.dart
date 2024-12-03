@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AccommodationPage extends StatefulWidget {
   const AccommodationPage({super.key});
@@ -140,32 +141,141 @@ class _AccommodationTabState extends State<AccommodationTab> {
         Expanded(
           child: data.isEmpty
               ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Text("Team Name")),
-                  DataColumn(label: Text("Name")),
-                  DataColumn(label: Text("Assigned Room No.")),
-                  DataColumn(label: Text("University")),
-                ],
-                rows: filteredData.map((entry) {
-                  return DataRow(
-                    cells: [
-                      DataCell(Text(entry["Team Name"]!)),
-                      DataCell(Text(entry["Name"]!)),
-                      DataCell(Text(entry["Assigned Room No."]!)),
-                      DataCell(Text(entry["University"]!)),
-                    ],
-                  );
-                }).toList(),
-              ),
-            ),
+              : ListView.builder(
+            itemCount: filteredData.length,
+            itemBuilder: (context, index) {
+              final entry = filteredData[index];
+              return Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      blurRadius: 5,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Team Name: ${entry['Team Name']!}", style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 4),
+                    Text("Name: ${entry['Name']!}"),
+                    const SizedBox(height: 4),
+                    Text("University: ${entry['University']!}"),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("More Details"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Assigned Room No",
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Text("${entry['Assigned Room No.']!}"),
+                                      const SizedBox(height: 12),
+                                      Text("Team Name: ${entry['Team Name']!}"),
+                                      const SizedBox(height: 12),
+                                      Text("Name: ${entry['Name']!}"),
+                                      const SizedBox(height: 12),
+                                      Text("University: ${entry['University']!}"),
+                                      const SizedBox(height: 8),
+                                    ],
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("Close"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: const Text("More Details"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Volunteers Info"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      _volunteerInfoRow(context, "Arup Biswas", "01882663173"),
+                                      const SizedBox(height: 4),
+                                      _volunteerInfoRow(context, "Sadman Hafij", "01303409319"),
+                                    ],
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("Close"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: const Text("Volunteers Info"),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ],
     );
   }
+}
+Widget _volunteerInfoRow(BuildContext context, String name, String phoneNumber) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+            InkWell(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: phoneNumber));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Copied $phoneNumber to clipboard")),
+                );
+              },
+              child: Text(
+                phoneNumber,
+                style: const TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+              ),
+            ),
+          ],
+        ),
+      ),
+      IconButton(
+        icon: const Icon(Icons.call, color: Colors.green),
+        onPressed: () => launchUrl(Uri.parse("tel:$phoneNumber")),
+      ),
+    ],
+  );
 }
