@@ -10,9 +10,12 @@ import '../Features/OnsiteContestPage.dart';
 import '../Features/PreliminaryContestPage.dart';
 import '../Features/SeatPlanPage.dart';
 import '../Features/VenuePage.dart';
+import '../Features/Contest_schedule.dart';
+import '../Features/Transport_accomodation.dart';
 import 'Component/CountdownClock.dart';
 import 'Component/PDFViewerPage.dart'; // For the image slider
-
+import '../Features/Componants/accomodation.dart';
+import '../Features/Componants/transport.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -28,52 +31,120 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.start, // Centers the images
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
               child: Image.asset(
                 'assets/logo/1.1 Logo Transparent.png',
                 height: 40, // You can adjust the size
-                // width: 40,
               ),
             ),
             Image.asset(
               'assets/images/icpclogo.png',
               height: 40, // You can adjust the size
             ),
-            // Image.asset(
-            //   'assets/images/DIULOGO.png',
-            //   height: 40, // You can adjust the size
-            // ),
-            // SizedBox(width: 10), // Adds some space between the two images
+          ],
+        ),
+      ),
+
+      endDrawer: Drawer( // Changed from 'drawer' to 'endDrawer'
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blueAccent,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Image.asset(
+                          'assets/logo/1.1 Logo Transparent.png',
+                          height: 40, // You can adjust the size
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/icpclogo.png',
+                        height: 40, // You can adjust the size
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'ICPC Asia Dhaka Regional',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pop(context);  // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),  // Navigate to the HomePage
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: const Text('Preliminary Contest'),
+              onTap: () {
+                Navigator.pop(context);  // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PreliminaryContestPage()),  // Navigate to PreliminaryContestPage
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.location_city),
+              title: const Text('Onsite Contest'),
+              onTap: () {
+                Navigator.pop(context);  // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => OnsiteContestPage()),  // Navigate to OnsiteContestPage
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.image),
+              title: const Text('Gallery'),
+              onTap: () {
+                Navigator.pop(context);  // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GalleryPage()),  // Navigate to GalleryPage
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('About'),
+              onTap: () {
+                Navigator.pop(context);  // Close the drawer
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutPage()),  // Navigate to AboutPage
+                );
+              },
+            ),
 
           ],
         ),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (String value) {
-              // Handle menu item selection
-              print('Selected: $value');
-            },
-            itemBuilder: (BuildContext context) {
-              return [
-                PopupMenuItem<String>(
-                  value: 'Option 1',
-                  child: Text('Option 1'),
-                ),
-                PopupMenuItem<String>(
-                  value: 'Option 2',
-                  child: Text('Option 2'),
-                ),
-                PopupMenuItem<String>(
-                  value: 'Option 3',
-                  child: Text('Option 3'),
-                ),
-              ];
-            },
-          ),
-        ],
       ),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -140,13 +211,14 @@ class HomePage extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   _buildFeatureItem(context, 'Onsite Contest', Icons.location_city, OnsiteContestPage()),
+                  _buildFeatureItem(context, 'Contest Schedule', Icons.schedule, ContestSchedule()),
+                  _buildFeatureItem(context, 'Seat Plan', Icons.event_seat, SeatPlanPage()),
+                  _buildFeatureItem(context, 'Transport', Icons.directions_bus, TransportTab()),
+                  _buildFeatureItem(context, 'Accommodation', Icons.hotel, AccommodationPage()),
                   _buildFeatureItem(context, 'Venue Location', Icons.location_on, VenuePage()),
                   _buildFeatureItem(context, 'Discover DIU', Icons.school, DiscoverPage()),
-                  _buildFeatureItem(context, 'Seat Plan', Icons.event_seat, SeatPlanPage()),
                   _buildFeatureItem(context, 'Committee', Icons.people, CommitteePage()),
-                  _buildFeatureItem(context, 'About', Icons.info, AboutPage()),
-                  _buildFeatureItem(context, 'Preliminary Contest', Icons.emoji_events, PreliminaryContestPage()),
-                  _buildFeatureItem(context, 'Gallery', Icons.photo_album, GalleryPage()),
+
                 ],
               ),
             ),

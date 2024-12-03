@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DiscoverPage extends StatelessWidget {
-
   // Function to open a URL with a loading screen
   void _openWebpage(BuildContext context, String url) {
     if (url.isNotEmpty) {
@@ -37,86 +36,62 @@ class DiscoverPage extends StatelessWidget {
                 context,
                 'স্বাধীনতা সম্মেলন কেন্দ্র',
                 'https://maps.app.goo.gl/FnFtbQr9BV87enqz9',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'International Conference Hall',
                 'https://maps.app.goo.gl/KoZ8PfpnUwzuQPg66',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'Food Court',
                 'https://maps.app.goo.gl/jVhWaEJsAs2EMrDQ9',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'Green Garden',
                 'https://maps.app.goo.gl/foRbnKKvLzRav3Nr9',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'Knowledge Tower (AB4)',
                 'https://maps.app.goo.gl/mz11jctBFwuRvy3j7',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'Inspiration Building (AB1)',
                 'https://maps.app.goo.gl/SVKw4QS5Tkik54tc9',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'DIU Central Jame Masjid',
                 'https://maps.app.goo.gl/xfJEgryG5myLyy3A7',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'DIU Library',
                 'https://maps.app.goo.gl/X7ptC5NppQyuftJNA',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'DIU Mini Lake',
                 'https://maps.app.goo.gl/wfkKihEbfmWu5QaJ7',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'DIU Lake Side',
                 'https://maps.app.goo.gl/5Zm7d9oLJ1xARZ5D6',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'DIU Bus Stand',
                 'https://maps.app.goo.gl/ZMyoxRBb4Um8ocBbA',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
               _buildClickableContainer(
                 context,
                 'DIU Parking Space',
                 'https://maps.app.goo.gl/AS53nC9yRNeh3Ehz6',
-                // logoAssetPath: "assets/images/your_logo.png",
               ),
-        
             ],
           ),
         ),
@@ -125,9 +100,9 @@ class DiscoverPage extends StatelessWidget {
   }
 
   // Helper function to create clickable containers
-  Widget _buildClickableContainer(BuildContext context, String title, String url, {String? logoAssetPath}) {
+  Widget _buildClickableContainer(BuildContext context, String title, String url) {
     return Padding(
-    padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: GestureDetector(
         onTap: () => _openWebpage(context, url),
         child: Container(
@@ -138,14 +113,6 @@ class DiscoverPage extends StatelessWidget {
           ),
           child: Row(
             children: [
-              if (logoAssetPath != null) ...[
-                Image.asset(
-                  logoAssetPath,
-                  height: 40,
-                  width: 40,
-                ),
-                const SizedBox(width: 10),
-              ],
               Expanded(
                 child: Text(
                   title,
@@ -163,7 +130,6 @@ class DiscoverPage extends StatelessWidget {
       ),
     );
   }
-
 }
 
 // Loading screen with progress bar and animation before going to the web page
@@ -193,10 +159,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await Future.delayed(const Duration(seconds: 2)); // Minimum loading time
 
     if (await canLaunch(widget.url)) {
-      await launch(
-        widget.url,
-        forceWebView: true,
-        enableJavaScript: true,
+      await launchUrl(
+        Uri.parse(widget.url),
+        mode: LaunchMode.externalApplication,  // Open the URL inside the app using a webview
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -243,7 +208,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             const CircularProgressIndicator(),
             const SizedBox(height: 20),
             const Text(
-               'Loading Please Wait...',
+              'Loading Please Wait...',
               style: TextStyle(fontSize: 18),
             ),
           ],

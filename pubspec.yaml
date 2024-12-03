@@ -43,6 +43,7 @@ dependencies:
 #  flutter_webview_plugin: ^0.4.0
   webview_flutter: ^4.10.0
   flutter_launcher_icons: ^0.14.1
+  excel: ^4.0.6
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,7 @@ flutter:
   assets:
     - assets/images/
     - assets/logo/
+    - assets/
 #    - assets/fonts/
 #    - assets/data/
   #   - images/a_dot_burr.jpeg
