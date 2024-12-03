@@ -32,6 +32,12 @@ class DiscoverPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Image.asset(
+                "assets/images/3.jpg", // Replace with your local map image
+                // height: 00,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 30),
               _buildClickableContainer(
                 context,
                 'স্বাধীনতা সম্মেলন কেন্দ্র',

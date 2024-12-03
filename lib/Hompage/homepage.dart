@@ -150,31 +150,39 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // 1st Container: Image Slider
-            Container(
-              height: 200,
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  height: 200.0,
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                ),
-                items: [
-                  "assets/images/1.jpg",
-                  "assets/images/2.jpg",
-                  "assets/images/3.jpg",
-                  "assets/images/4.jpg",
-                  "assets/images/5.jpg",
-                  // "assets/images/1.jpg"
-                ].map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Image.asset(i, fit: BoxFit.fill);
-                    },
-                  );
-                }).toList(),
+            // Container(
+            //   height: 200,
+            //   child: CarouselSlider(
+            //     options: CarouselOptions(
+            //       height: 200.0,
+            //       autoPlay: true,
+            //       enlargeCenterPage: true,
+            //     ),
+            //     items: [
+            //       "assets/images/1.jpg",
+            //       "assets/images/2.jpg",
+            //       "assets/images/3.jpg",
+            //       "assets/images/4.jpg",
+            //       "assets/images/5.jpg",
+            //       // "assets/images/1.jpg"
+            //     ].map((i) {
+            //       return Builder(
+            //         builder: (BuildContext context) {
+            //           return Image.asset(i, fit: BoxFit.fill);
+            //         },
+            //       );
+            //     }).toList(),
+            //
+            //   ),
+            // ),
 
-              ),
+
+            Image.asset(
+              "assets/images/img_1.png", // Replace with your local map image
+              // height: 00,
+              fit: BoxFit.cover,
             ),
+            const SizedBox(height: 10),
 
             // 2nd Container: Features
             Center(
@@ -213,7 +221,7 @@ class HomePage extends StatelessWidget {
                   _buildFeatureItem(context, 'Onsite Contest', Icons.location_city, OnsiteContestPage()),
                   _buildFeatureItem(context, 'Contest Schedule', Icons.schedule, ContestSchedule()),
                   _buildFeatureItem(context, 'Seat Plan', Icons.event_seat, SeatPlanPage()),
-                  _buildFeatureItem(context, 'Transport', Icons.directions_bus, TransportTab()),
+                  _buildFeatureItem(context, 'Transport', Icons.directions_bus, RouteDetailsPage()),
                   _buildFeatureItem(context, 'Accommodation', Icons.hotel, AccommodationPage()),
                   _buildFeatureItem(context, 'Venue Location', Icons.location_on, VenuePage()),
                   _buildFeatureItem(context, 'Discover DIU', Icons.school, DiscoverPage()),

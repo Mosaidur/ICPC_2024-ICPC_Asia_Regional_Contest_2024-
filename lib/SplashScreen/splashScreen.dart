@@ -55,7 +55,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   Image.asset(
                     // "assets/logo/1.1 Logo Transparent.png",
                     "assets/images/Artboard 1 (4).png",
-                    width: 300,
+                    width: 350,
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
@@ -68,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
             right: 0,
             child: Container(
               width: double.infinity,
-              height: 150,
+              height: 250,
               color: Colors.transparent, // Transparent background for the bottom bar
               child: Column(
                 children: [
@@ -113,6 +116,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       Image.asset("assets/images/cpcLogo.png", height: 30),
                     ],
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                 ],
               ),

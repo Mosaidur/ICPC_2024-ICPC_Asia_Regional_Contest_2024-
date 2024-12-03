@@ -44,6 +44,8 @@ dependencies:
   webview_flutter: ^4.10.0
   flutter_launcher_icons: ^0.14.1
   excel: ^4.0.6
+  marquee: ^2.3.0
+  photo_view: ^0.15.0
 
 dev_dependencies:
   flutter_test:
