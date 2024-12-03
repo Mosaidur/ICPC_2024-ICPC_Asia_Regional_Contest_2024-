@@ -139,7 +139,7 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
                                         Text("Category: ${entry['Category']!}"),
                                         const SizedBox(height: 12),
                                         // Text("SL2: ${entry['SL2']!}"),
-                                        //                                         // const SizedBox(height: 8),
+                                        // const SizedBox(height: 8),
                                       ],
                                     ),
                                     actions: [
