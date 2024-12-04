@@ -2,6 +2,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SeatPlanPage extends StatefulWidget {
   @override
@@ -38,7 +40,7 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
         "PC_init": table.cell(CellIndex.indexByColumnRow(columnIndex: 7, rowIndex: rowIndex)).value?.toString() ?? "",
         "PC / Seat number": table.cell(CellIndex.indexByColumnRow(columnIndex: 8, rowIndex: rowIndex)).value?.toString() ?? "",
         "Category": table.cell(CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: rowIndex)).value?.toString() ?? "",
-        "SL2": table.cell(CellIndex.indexByColumnRow(columnIndex: 10, rowIndex: rowIndex)).value?.toString() ?? "",
+        // "SL2": table.cell(CellIndex.indexByColumnRow(columnIndex: 10, rowIndex: rowIndex)).value?.toString() ?? "",
       });
     }
 
@@ -56,6 +58,8 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
       }).toList();
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +107,14 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Team Name: ${entry['Team Name']!}", style: const TextStyle(fontWeight: FontWeight.bold)),
+                      Text("Team Name: ${entry['Team Name']!}",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          )),
                       const SizedBox(height: 4),
-                      Text("Preliminary Rank: ${entry['Rank']!}"),
-                      const SizedBox(height: 4),
+                      // Text("Preliminary Rank: ${entry['Rank']!}"),
+                      // const SizedBox(height: 4),
                       Text("Institution: ${entry['Institution Name']!}"),
                       const SizedBox(height: 8),
                       Row(
@@ -123,12 +131,13 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          "Team ID: ${entry['Team ID']!}",
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                        ),
-                                        const SizedBox(height: 6),
-                                        Text("Preliminary Rank: ${entry['Rank']!}"),
+                                        Text("Team Name: ${entry['Team Name']!}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 25,
+                                            )),
+                                        // const SizedBox(height: 6),
+                                        // Text("Preliminary Rank: ${entry['Rank']!}"),
                                         const SizedBox(height: 12),
                                         Text("Institution: ${entry['Institution Name']!}"),
                                         const SizedBox(height: 12),
@@ -136,13 +145,26 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
                                         const SizedBox(height: 12),
                                         Text("PC Number: ${entry['PC / Seat number']!}"),
                                         const SizedBox(height: 12),
-                                        Text("Category: ${entry['Category']!}"),
-                                        const SizedBox(height: 12),
+                                        // Text("Category: ${entry['Category']!}"),
+                                        // const SizedBox(height: 12),
                                         // Text("SL2: ${entry['SL2']!}"),
                                         // const SizedBox(height: 8),
                                       ],
                                     ),
                                     actions: [
+                                      ElevatedButton.icon(
+                                        onPressed: () async {
+                                          const url = "https://drive.google.com/file/d/1ooeuG4JS_16Z9NR-Db6UVPYeJxmt3jW9/view?usp=sharing";
+                                          if (await canLaunch(url)) {
+                                            await launch(url);
+                                          } else {
+                                            throw 'Could not launch $url';
+                                          }
+                                        },
+                                        icon: const Icon(Icons.map_rounded),
+                                        label: const Text("Contest Flood Map"),
+                                      ),
+
                                       TextButton(
                                         onPressed: () => Navigator.pop(context),
                                         child: const Text("Close"),
@@ -154,6 +176,9 @@ class _SeatPlanPageState extends State<SeatPlanPage> {
                             },
                             child: const Text("More Details"),
                           ),
+
+
+
                         ],
                       ),
                     ],

@@ -16,6 +16,8 @@ import 'Component/CountdownClock.dart';
 import 'Component/PDFViewerPage.dart'; // For the image slider
 import '../Features/Componants/accomodation.dart';
 import '../Features/Componants/transport.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 
 class HomePage extends StatelessWidget {
@@ -165,6 +167,93 @@ class HomePage extends StatelessWidget {
               },
             ),
 
+
+            ListTile(
+              leading: const Icon(Icons.developer_mode),
+              title: const Text('Developer Info'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Developer Info'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Developer's Image
+                        Center(
+                          child: ClipOval(
+                            child: Image.asset(
+                              "assets/images/developer photo.jpg",
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text('Mosaidur Rahman Asif'),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () async {
+                            const url = 'https://github.com/mosaidur';
+                            if (await canLaunchUrl(Uri.parse(url))) {
+                              await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          child: Row(
+                            children: const [
+                              Icon(Icons.link, size: 16),
+                              SizedBox(width: 4),
+                              Text(
+                                'GitHub Profile',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  // decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        GestureDetector(
+                          onTap: () async {
+                            const email = 'mailto:mosaidurrahmanasif@gmail.com';
+                            if (await canLaunchUrl(Uri.parse(email))) {
+                              await launchUrl(Uri.parse(email), mode: LaunchMode.externalApplication);
+                            } else {
+                              throw 'Could not launch $email';
+                            }
+                          },
+                          child: Row(
+                            children: const [
+                              Icon(Icons.email, size: 16),
+                              SizedBox(width: 4),
+                              Text(
+                                'mosaidurrahmanasif@gmail.com',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  // decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Close'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
 
 
           ],
