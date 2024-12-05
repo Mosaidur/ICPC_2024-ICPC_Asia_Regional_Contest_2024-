@@ -335,7 +335,7 @@ class HomePage extends StatelessWidget {
                 children: [
 
                   _buildFeatureItem(context, 'Seat Plan', Icons.event_seat, SeatPlanPage()),
-                  _buildFeatureItem(context, 'Contest Schedule', Icons.schedule, ContestSchedule()),
+                  _buildFeatureItem(context, 'Program schedule', Icons.schedule, ContestSchedule()),
                   _buildFeatureItem(context, 'Onsite Contest', Icons.location_city, OnsiteContestPage()),
                   _buildFeatureItem(context, 'Transport', Icons.directions_bus, RouteDetailsPage()),
                   _buildFeatureItem(context, 'Accommodation', Icons.hotel, AccommodationPage()),

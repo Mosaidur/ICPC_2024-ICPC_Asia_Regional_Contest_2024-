@@ -80,6 +80,7 @@ flutter:
   assets:
     - assets/images/
     - assets/logo/
+    - assets/discover_DIU/
     - assets/
 #    - assets/fonts/
 #    - assets/data/

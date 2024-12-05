@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:marquee/marquee.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:marquee/marquee.dart';
+
 
 class RouteDetailsPage extends StatefulWidget {
   const RouteDetailsPage({super.key});
